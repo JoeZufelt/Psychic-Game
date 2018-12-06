@@ -22,6 +22,7 @@ document.onkeyup = function(event) {
         guesses = 9;
     } else {
         guesses--;
+        
     }
     
     textWins.textContent = "Wins: " + wins;
