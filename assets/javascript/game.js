@@ -14,29 +14,33 @@ var textLosses = document.getElementById("textLosses");
 var textGuessesLeft = document.getElementById("textGuesses");
 var yourGuesses = document.getElementById("yourGuesses");
 
-document.onkeyup = function(event) {
+document.onkeyup = function (event) {
     var userGuess = event.key;
-    if (userGuessA.includes(userGuess) === false) {
-    var compGuess = letters[Math.floor(Math.random() * letters.length)];
+    // This is supposed to only allow A-Z buuuuuuuuut it's not working, Sarah says it's very strange
+    // I literally changed nothing and now it's working. Coding is fun!
+    if (userGuess >= "a" && userGuess <= "z") {
+        if (userGuessA.includes(userGuess) === false) {
+            var compGuess = letters[Math.floor(Math.random() * letters.length)];
 
-    userGuessA.push(userGuess);
+            userGuessA.push(userGuess);
+            
+            if (userGuess === compGuess) {
+                wins++;
+                guesses = 9;
+                userGuessA = [];
+            } else {
+                guesses--;
+                if (guesses === 0) {
+                    losses++;
+                    userGuessA = [];
+                    guesses = 9;
+                }
+            }
 
-    if (userGuess === compGuess) {
-        wins++;
-        guesses = 9;
-        userGuessA = [];
-    } else {
-        guesses--;
-        if (guesses === 0) {
-            losses++;
-            userGuessA = [];
-            guesses = 9;
+            textWins.textContent = "Wins: " + wins;
+            textLosses.textContent = "Losses: " + losses;
+            textGuessesLeft.textContent = "Guesses left: " + guesses;
+            yourGuesses.textContent = "Your guesses: " + userGuessA;
         }
-    }
-    
-    textWins.textContent = "Wins: " + wins;
-    textLosses.textContent = "Losses: " + losses;
-    textGuessesLeft.textContent = "Guesses left: " + guesses;
-    yourGuesses.textContent = "Your guesses: " + userGuessA;
     }
 };
